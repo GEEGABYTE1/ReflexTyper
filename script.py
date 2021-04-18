@@ -39,7 +39,9 @@ class Script:
         words = rw.getList(int(self.number))
 
         for i in words:
+            print("-" * 6)
             print(i)
+            print("-" * 6)
             self.string = i 
             time.sleep(0.2)
             start_time = time.time()
@@ -75,6 +77,9 @@ class Script:
             self.time_converter_string(i)
         dictionary = {key: value for key, value in zip(self.string_times, self.precisions)}
 
+        sorted_times = self.merge_sort(self.times)
+        fastest_time = sorted_times[0]
+        slowest_time = sorted_times[-1]
         count = 1
         for k,l in dictionary.items():
             print("""Word no.{count}: 
@@ -96,9 +101,36 @@ class Script:
 
             Average Time Taken: {time} seconds
             Average Accuracy: {accuracy}%
+            Fastest Time: {fast} seconds
+            Slowest Time: {slow} seconds
 
-            """.format(time=round(self.time / len(self.times)), accuracy=int(self.accuracy / len(self.precisions))))
+            """.format(time=round(self.time / len(self.times)), accuracy=int(self.accuracy / len(self.precisions)), fast=fastest_time, slow=slowest_time))
             
+    def merge_sort(self,lst):
+        if len(lst) <= 1:
+            return lst 
+        else:
+            middle_index = len(lst) // 2
+            left_split = lst[:middle_index]
+            right_split = lst[middle_index:]
+            left_sorted = self.merge_sort(left_split)
+            right_sorted = self.merge_sort(right_split)
+            return self.merge(left_sorted, right_sorted)
+
+    def merge(self,left, right):
+        result = []
+        while left and right:
+            if left[0] < right[0]:
+                result.append(left[0])
+                left.pop(0)
+            else:
+                result.append(right[0])
+                right.pop(0)
+        if left:
+            result += left 
+        elif right:
+            result += right 
+        return result
 
 
 
