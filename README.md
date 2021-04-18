@@ -19,6 +19,6 @@ The Merge Sort was implemented for practice reasons. In this program, the algori
 
 The `RandomWordGenerator` is the module used to prompt random words of a certain length. 
 
-The length can be changed by
+The length can be changed by replacing the constant in the `max_word_size=20` in `rw.RandomWord(max_word_size=20, constant_word_size=False)`.
 
 Made in Python 🐍
