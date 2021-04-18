@@ -11,7 +11,7 @@ The goal is to type the prompted words as fast as possible with high accuracy ðŸ
 
 After typing back all the words prompted, the program will return a session summary including the average time taken, slowest time, fastest time, and average accuracy. Moreover, the program will also return a summary of each word in terms of time taken and accuracy. 
 
-`/quit`: Allows the user to quit the program when prompted `Please type in the amount of words that you would like to type: `
+`/quit`: Allows the user to quit the program. Can be typed when prompted to type the word, or when asked to input a certain amount of words to type at the start of the program. 
 
 # Extras 
 
