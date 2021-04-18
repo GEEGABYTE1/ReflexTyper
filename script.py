@@ -1,7 +1,7 @@
 from RandomWordGenerator import RandomWord
-
+import random
 import time
-
+import datetime
 
 
 
@@ -21,7 +21,12 @@ class Script:
             self.number = input('Please type in the amount of words that you would like to type: ')
             if self.number == "/quit":
                 break
+
+            if self.table() == None:
+                break
+
             self.table()
+       
 
     def time_converter_string(self, sec):
         self.mins = sec // 60
@@ -48,6 +53,8 @@ class Script:
             prompt = input()
             end_time = time.time()
 
+            if prompt == "/quit":
+                break
             current_string_list = []
             user_prompted_words = []
             for k in i:
@@ -71,40 +78,44 @@ class Script:
         self.ending()
 
     def ending(self):
-        print("Here is the summary of your session: ")
-        self.string_times = []
-        for i in self.times:
-            self.time_converter_string(i)
-        dictionary = {key: value for key, value in zip(self.string_times, self.precisions)}
+        try:
+            print("Here is the summary of your session: ")
+            self.string_times = []
+            for i in self.times:
+                self.time_converter_string(i)
+            dictionary = {key: value for key, value in zip(self.string_times, self.precisions)}
 
-        sorted_times = self.merge_sort(self.times)
-        fastest_time = sorted_times[0]
-        slowest_time = sorted_times[-1]
-        count = 1
-        for k,l in dictionary.items():
-            print("""Word no.{count}: 
+            sorted_times = self.merge_sort(self.times)
+            fastest_time = sorted_times[0]
+            slowest_time = sorted_times[-1]
+            count = 1
+            for k,l in dictionary.items():
+                print("""Word no.{count}: 
+                
+                Time: {time} seconds
+                Accuracy: {accuracy}%
+
+                """.format(count=count, time=k, accuracy=l))
+                count += 1
             
-            Time: {time} seconds
-            Accuracy: {accuracy}%
+            for i in self.times:
+                self.time += i 
+            for i in self.precisions:
+                self.accuracy += i 
+            
+            print("----------------------------------")
+            print(""" 
+            Total Session Summary: 
 
-            """.format(count=count, time=k, accuracy=l))
-            count += 1
-        
-        for i in self.times:
-            self.time += i 
-        for i in self.precisions:
-            self.accuracy += i 
-        
-        print("----------------------------------")
-        print(""" 
-        Total Session Summary: 
+                Average Time Taken: {time} seconds
+                Average Accuracy: {accuracy}%
+                Fastest Time: {fast} seconds
+                Slowest Time: {slow} seconds
 
-            Average Time Taken: {time} seconds
-            Average Accuracy: {accuracy}%
-            Fastest Time: {fast} seconds
-            Slowest Time: {slow} seconds
-
-            """.format(time=round(self.time / len(self.times)), accuracy=int(self.accuracy / len(self.precisions)), fast=fastest_time, slow=slowest_time))
+                """.format(time=round(self.time / len(self.times)), accuracy=int(self.accuracy / len(self.precisions)), fast=fastest_time, slow=slowest_time))
+        except IndexError:
+            print("The user has quit the program! ")
+            return 
             
     def merge_sort(self,lst):
         if len(lst) <= 1:
