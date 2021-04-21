@@ -98,10 +98,8 @@ class Script:
                 """.format(count=count, time=k, accuracy=l))
                 count += 1
             
-            for i in self.times:
-                self.time += i 
-            for i in self.precisions:
-                self.accuracy += i 
+            self.times = [self.time += i for i in self.times]
+            self.precisions = [self.accuracy += i for i in self.accuracy]
             
             print("----------------------------------")
             print(""" 
